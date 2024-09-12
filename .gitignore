@@ -1,0 +1,7 @@
+data
+*temp*
+**/__pycache__
+.vscode
+**/logs
+*.obj
+*.pkl

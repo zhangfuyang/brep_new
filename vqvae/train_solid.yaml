@@ -1,0 +1,31 @@
+data_params:
+  pkl_path: 'data/deepcad_solid_deduplicated_id.pkl'
+  key: 'solid'
+
+network_params:
+  n_channels: 1
+  with_conv: True
+  num_res_blocks: 3
+  channels: [1,2,4,4,8] # downsample 4 times, 64 -> 32 -> 16 -> 8 -> 4
+  voxel_size: 64
+  ch: 32
+  codebook_dim: 4
+  codebook_size: 8192
+
+trainer_params:
+  batch_size: 40
+  lr: 0.0001
+  weight_decay: 0.0
+  lr_decay: 0.99
+  vq_weight: 0.25
+  accelerator: 'gpu'
+  max_epochs: 3000
+  devices: 1
+  strategy: 'ddp'
+  log_every_n_steps: 100
+  gradient_clip_val: 1.0
+  default_root_dir: 'vqvae/logs/solid'
+
+
+
+
