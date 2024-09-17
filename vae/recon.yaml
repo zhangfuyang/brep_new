@@ -1,0 +1,12 @@
+data_params:
+  train:
+    pkl_path: 'data/deepcad_solid_deduplicated_id.pkl'
+
+trainer_params:
+  default_root_dir: 'vqvae/logs/recon'
+  face_model:
+    config_yaml: 'vqvae/logs/face/lightning_logs/version_1/config.yaml'
+    checkpoint: 'vqvae/logs/face/lightning_logs/version_1/checkpoints/last.ckpt'
+  solid_model:
+    config_yaml: 'vqvae/logs/solid/lightning_logs/version_2/config.yaml'
+    checkpoint: 'vqvae/logs/solid/lightning_logs/version_2/checkpoints/last.ckpt'

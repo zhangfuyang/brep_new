@@ -373,11 +373,15 @@ if __name__ == "__main__":
     val_dataset = LatentDataset(config['data_params'])
     val_dataloader = torch.utils.data.DataLoader(
         val_dataset, batch_size=8, 
-        shuffle=False, num_workers=8, collate_fn=dataset.collate_fn)
+        shuffle=True, num_workers=8, collate_fn=dataset.collate_fn)
     
     checkpoint_callback = pl.callbacks.ModelCheckpoint(
         save_top_k=1, monitor='loss', mode='min',
         save_last=True, filename='{epoch}-{loss:.2f}')
+    
+    checkpoint_callback_last = pl.callbacks.ModelCheckpoint(
+        filename='last-model-{epoch:02d}',
+        save_last=True)
 
     lr_monitor = pl.callbacks.LearningRateMonitor()
 
@@ -389,7 +393,7 @@ if __name__ == "__main__":
         strategy=trainer_config['strategy'],
         log_every_n_steps=trainer_config['log_every_n_steps'],
         default_root_dir=trainer_config['default_root_dir'],
-        callbacks=[checkpoint_callback, lr_monitor],
+        callbacks=[checkpoint_callback, lr_monitor, checkpoint_callback_last],
         gradient_clip_val=trainer_config['gradient_clip_val'],
         num_sanity_val_steps=1,
         val_check_interval=1.,
